@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="jquery-3.7.0.js"></script>
+  </head>
+  <body>
+    <button>Load</button>
+    <div class="table"></div>
+    <script>
+      $("button").on("click", function () {
+        $.ajax({
+          url: "https://jsonplaceholder.typicode.com/posts",
+          method: "GET",
+          dataType: "JSON",
+          success: function (result) {
+            //console.log(result);
+            let table = $(`
+            <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>TITLE</th>
+                <th>BODY</th>
+            </tr>
+                 </table>
+                      `);
+            for (let index = 0; index < 10; index++) {
+              let row = $(`   <tr>
+                             <td>${result[index].id}</td>
+                             <td>${result[index].title}</td>
+                             <td>${result[index].body}</td>
+                             </tr>`);
+              table.append(row);
+            }
+            $("div").append(table);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
